@@ -4,7 +4,7 @@ FSJS Project 2 - Data Pagination and Filtering
 */
 
 
-//create first page of students
+//Creates first page of students
 const showPage = (list, page) => {
    //creates the maximum number of students on a page
    const startIndex = (page *  9) - 9;
@@ -33,7 +33,7 @@ const showPage = (list, page) => {
  }
 
 
-//create pagination buttons and listens for clicks
+//Creates pagination buttons and listens for clicks
 const addPagination = (list) => {
    //Calculates maximum number of pages needed for students (9 per page)
    const infoLength = Math.ceil(list.length / 9);
@@ -61,6 +61,18 @@ const addPagination = (list) => {
    });
  }
 
+//Creates and formats search bar 
+const searchBar = () => {
+   const header = document.querySelector('.header');
+   header.insertAdjacentHTML('beforeend', `
+   <label for="search" class="student-search">
+      <span>Search by name</span>
+      <input id="search" placeholder="Search by name...">
+      <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+   </label>
+   `)
+}
 
+searchBar();
 showPage(data, 1);
 addPagination(data);
