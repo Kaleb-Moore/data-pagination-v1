@@ -30,40 +30,21 @@ const showPage = (list, page) => {
          // insert the above elements
    for (let i = 0; i < list.length; i++) {
       if (i >= startIndex && i < endIndex) {
-         const ul = document.querySelector('.student-list')
-
-         const li = document.createElement('li');
-         li.className = 'student-item cf';
-         ul.appendChild(li);
-
-         const div = document.createElement('div');
-         div.className = 'student-details';
-         li.appendChild(div);
-
-         const img = document.createElement('img');
-         img.className = 'avatar';
-         img.src = `${list[i].picture.large}`;
-         div.appendChild(img);
-
-         const h3 = document.createElement('h3');
-         h3.innerHTML = `${list[i].name.first} ${list[i].name.last}`;
-         div.appendChild(h3);
-
-         const span = document.createElement('span');
-         span.className = 'email';
-         span.innerHTML = `${list[i].email}`;
-         div.appendChild(span);
-
-         const divJoined = document.createElement('div');
-         divJoined.className = 'joined-details';
-         li.appendChild(divJoined);
-
-         const spanDate = document.createElement('span');
-         spanDate.className = 'date';
-         spanDate.innerHTML = `Joined ${list[i].registered.date}`;
-         divJoined.appendChild(spanDate);
+         studentList.insertAdjacentHTML('beforeend', `
+         <li class="student-item cf">
+            <div class="student-details">
+               <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
+               <h3>${list[i].name.first} ${list[i].name.last}</h3>
+               <span class="email">${list[i].email}</span>
+            </div>
+            <div class="joined-details">
+               <span class="date">Joined ${list[i].registered.date}</span>
+            </div>
+         </li>
+         `)
       }
    }
+   return studentList;
  }
  
 showPage(data, 1);
