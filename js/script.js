@@ -17,8 +17,8 @@ This function will create and insert/append the elements needed to display a "pa
 
 const showPage = (list, page) => {
    // create two variables which will represent the index for the first and last student on the page
-   const startIndex = (page *  10) - 10;
-   const endIndex = page * 10;
+   const startIndex = (page *  9) - 9;
+   const endIndex = page * 9;
    // select the element with a class of `student-list` and assign it to a variable
    const studentList = document.querySelector('.student-list');
    // set the innerHTML property of the variable you just created to an empty string
@@ -29,7 +29,7 @@ const showPage = (list, page) => {
          // create the elements needed to display the student information
          // insert the above elements
    for (let i = 0; i < list.length; i++) {
-      if (i > startIndex && i < endIndex) {
+      if (i >= startIndex && i < endIndex) {
          const ul = document.querySelector('.student-list')
 
          const li = document.createElement('li');
