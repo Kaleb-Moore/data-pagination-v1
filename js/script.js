@@ -55,6 +55,40 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
+function addPagination(list) {
+   // create a variable to calculate the number of pages needed
+   const infoLength = Math.ceil(list.length / 9);
+   // select the element with a class of `link-list` and assign it to a variable
+   const linkList = document.querySelector('.link-list');
+   // set the innerHTML property of the variable you just created to an empty string
+   linkList.innerHTML = '';
+   // loop over the number of pages needed
+     // create the elements needed to display the pagination button
+     // insert the above elements
+   for (let i = 1; i <= infoLength; i++) {
+      linkList.insertAdjacentHTML('beforeend', `
+      <button type="button">${i}</button>
+      `)
+   }
+      // give the first pagination button a class of "active"
+   const activeButton = document.querySelectorAll('button')[0];
+   activeButton.className = 'active';
 
+   // create an event listener on the `link-list` element
+     // if the click target is a button:
+       // remove the "active" class from the previous button
+       // add the active class to the clicked button
+       // call the showPage function passing the `list` parameter and page to display as arguments
+   linkList.addEventListener('click', (e) => {
+      if(e.target.tagName === "BUTTON") {
+         const unassign = document.querySelector('.active');
+         unassign.className = '';
+         e.target.className = 'active';
+         showPage(list, e.target.textContent);
+      }
+   });
+ }
+ 
+addPagination(data);
 
 // Call functions
