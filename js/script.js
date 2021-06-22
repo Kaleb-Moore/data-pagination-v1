@@ -3,6 +3,8 @@ Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
 */
 
+
+//Creates the search bar on the page
 const header = document.querySelector('.header');
 header.insertAdjacentHTML('beforeend', `
 <label for="search" class="student-search">
@@ -21,9 +23,6 @@ const showPage = (list, page) => {
 
    const studentList = document.querySelector('.student-list');
    studentList.innerHTML = '';
-   if(list.length === 0) {
-      studentList.innerHTML = `<h1>This person could not be found, please try again</h1>`
-   }
 
    //Loops over data objects range and adds formatted info to li
    for (let i = 0; i < list.length; i++) {
@@ -60,9 +59,8 @@ const addPagination = (list) => {
       <button type="button">${i}</button>
       </li>
       `)
+      document.querySelector('.link-list button').className = 'active';
    }
-
-   document.querySelector('.link-list button').className = 'active';
 
    //Listens for click and changes target to active, removing active from previous button
    linkList.addEventListener('click', (e) => {
@@ -75,7 +73,8 @@ const addPagination = (list) => {
    });
  }
 
-//Creates and formats search bar 
+
+//Creates search bar behavior for handling different instances
 const searchBar = (list) => {
    const search = document.querySelector('#search');
    const button = document.querySelectorAll('button')[0];
@@ -88,32 +87,30 @@ const searchBar = (list) => {
          if (searchInput.length === 0) {
             showPage(list, 1);
             addPagination(list);
+         //checks to see if first or last name match the search bar
          } else if (nameCheck.includes(searchInput.value.toLowerCase())) {
             searchList.push(list[i]);
             showPage(searchList, 1);
             addPagination(searchList);
-         } 
-         // else if (searchInput.value.toLowerCase() !== nameCheck) {
-         //    document.querySelector('body').innerHTML = `Sorry, ${searchInput.value} is not a student`
-         // }
+         //If returned list is 0 then display "not a student" message
+         } else if (searchList.length === 0) {
+            document.querySelector('ul').innerHTML = `Sorry, ${searchInput.value} is not a student`
+            addPagination(searchList);
+         }
       }
    }
-
+//listens for the search button to return student
    button.addEventListener('click', (e) => {
-      performSearch(search, data);
+      performSearch(search, list);
    });
 
-
+//listens for the key presses and updates the student list in real time
    input.addEventListener('keyup', (e) => {
-      performSearch(search, data)
+      performSearch(search, list)
    });
 }
 
 
-// for (let i = 0; i < data.length; i++){
-//    console.log(data[i].name.first);
-//    console.log(data[i].name.last);
-// }
 searchBar(data);
 showPage(data, 1);
 addPagination(data);
